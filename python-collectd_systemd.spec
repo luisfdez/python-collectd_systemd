@@ -17,8 +17,9 @@ BuildArch:      noarch
  
 BuildRequires:  python2-devel
 BuildRequires:  python2-setuptools
-BuildRequires:  python2-pytest
+BuildRequires:  pytest
 BuildRequires:  python2-mock
+
  
 %description
 collectd-systemd A collectd plugin which checks if given systemd services
@@ -52,8 +53,7 @@ rm -rf %{pypi_name}.egg-info
 %{python2_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
 
 %check
-rpm -ql python2-pytest
-PYTHONPATH=. pytest
+PYTHONPATH=. py.test
 
 %changelog
 * Thu May 17 2018 Steve Traylen <steve.traylen@cern.ch> - 0.0.1-0.2.20180516gita7018ec 1

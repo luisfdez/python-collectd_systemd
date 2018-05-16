@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.1
-Release:        0.2.%{snapinfo}%{?dist}.1
+Release:        0.2.%{snapinfo}%{?dist}.2
 Summary:        Collectd plugin to monitor systemd services
 
 License:        MIT
@@ -56,6 +56,9 @@ rm -rf %{pypi_name}.egg-info
 PYTHONPATH=. py.test
 
 %changelog
+* Thu May 17 2018 Steve Traylen <steve.traylen@cern.ch> - 0.0.1-0.2.20180516gita7018ec 2
+- Use new build of pytest.
+
 * Thu May 17 2018 Steve Traylen <steve.traylen@cern.ch> - 0.0.1-0.2.20180516gita7018ec 1
 - Backport to el7.
 

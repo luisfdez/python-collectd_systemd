@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.1
-Release:        0.2.%{snapinfo}%{?dist}.4
+Release:        0.2.%{snapinfo}%{?dist}.5
 Summary:        Collectd plugin to monitor systemd services
 
 License:        MIT
@@ -27,7 +27,7 @@ are in "running" state and sends metrics with 1.0 or 0.0.
 %package -n     python2-%{pypi_name}
 Summary:        %{summary}
 Requires:       dbus-python
-Requires:       collectd-python
+Requires:       collectd
 
 %description -n python2-%{pypi_name}
 collectd-systemd A collectd plugin which checks if given systemd services
@@ -56,6 +56,9 @@ rm -rf %{pypi_name}.egg-info
 PYTHONPATH=. py.test
 
 %changelog
+* Thu May 17 2018 Steve Traylen <steve.traylen@cern.ch> - 0.0.1-0.2.20180516gita7018ec 5
+- python-collectd does not exist el7.
+
 * Thu May 17 2018 Steve Traylen <steve.traylen@cern.ch> - 0.0.1-0.2.20180516gita7018ec 4
 - python-collectd does not exist el7.
 

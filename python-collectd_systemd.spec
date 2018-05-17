@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.1
-Release:        0.2.%{snapinfo}%{?dist}.2
+Release:        0.2.%{snapinfo}%{?dist}.3
 Summary:        Collectd plugin to monitor systemd services
 
 License:        MIT
@@ -26,7 +26,7 @@ collectd-systemd A collectd plugin which checks if given systemd services
 are in "running" state and sends metrics with 1.0 or 0.0.
 %package -n     python2-%{pypi_name}
 Summary:        %{summary}
-Requires:       python2-dbus
+Requires:       dbus-python
 Requires:       collectd-python
 
 %description -n python2-%{pypi_name}
@@ -56,6 +56,9 @@ rm -rf %{pypi_name}.egg-info
 PYTHONPATH=. py.test
 
 %changelog
+* Thu May 17 2018 Steve Traylen <steve.traylen@cern.ch> - 0.0.1-0.2.20180516gita7018ec 3
+- Correct python-dbus package name for el7.
+
 * Thu May 17 2018 Steve Traylen <steve.traylen@cern.ch> - 0.0.1-0.2.20180516gita7018ec 2
 - Use new build of pytest.
 

@@ -13,6 +13,7 @@ Summary:        Collectd plugin to monitor systemd services
 License:        MIT
 URL:            https://github.com/mbachry/collectd-systemd/
 Source0:        https://github.com/mbachry/collectd-systemd/archive/%{commit}/collectd-system-%{shortcommit}.tar.gz
+Source1:        collectd_systemd.te
 BuildArch:      noarch
  
 BuildRequires:  python2-devel
@@ -25,6 +26,8 @@ BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(mock)
 
+BuildRequires:  selinux-policy-devel
+
 %description
 collectd-systemd A collectd plugin which checks if given systemd services
 are in "running" state and sends metrics with 1.0 or 0.0.
@@ -33,6 +36,7 @@ Summary:        %{summary}
 %{?python_provide:%python_provide python2-%{pypi_name}}
 Requires:       python2-dbus
 Requires:       collectd-python
+Requires:       %{name}-selinux = %{version}-%{release}
 
 %description -n python2-%{pypi_name}
 collectd-systemd A collectd plugin which checks if given systemd services
@@ -43,25 +47,50 @@ Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
 Requires:       python3-dbus
 Requires:       collectd-python
+Requires:       %{name}-selinux = %{version}-%{release}
 
 %description -n python3-%{pypi_name}
 collectd-systemd A collectd plugin which checks if given systemd services
 are in "running" state and sends metrics with 1.0 or 0.0.
 
+%package selinux
+Summary:        selinux policy for collectd systemd plugin
+Requires:       selinux-policy
+Requires:       policycoreutils
+
+%description selinux
+This package contains selinux rules to allow the collectd
+systemd plugin to access service status via dbus.
+
 %prep
 %autosetup -n collectd-systemd-%{commit}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
+cp -p %{SOURCE1} .
 
 %build
 %py2_build
 %py3_build
+make -f /usr/share/selinux/devel/Makefile collectd_systemd.pp
 
 %install
 # Must do the default python version install last because
 # the scripts in /usr/bin are overwritten with every setup.py install.
 %py2_install
 %py3_install
+
+mkdir -p %{buildroot}%{_datadir}/selinux/packages/%{name}
+install -m 644 -p collectd_systemd.pp \
+    %{buildroot}%{_datadir}/selinux/packages/%{name}/collectd_systemd.pp
+
+%post selinux
+/usr/sbin/semodule -i %{_datadir}/selinux/packages/collectd_systemd/collectd_systemd.pp >/dev/null 2>&1 || :
+
+%postun selinux
+if [ $1 -eq 0 ] ; then
+    /usr/sbin/semodule -r collectd_systemd >/dev/null 2>&1 || :
+fi
+
 
 %files -n python2-%{pypi_name}
 %doc README.rst
@@ -75,6 +104,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/__pycache__/*
 %{python3_sitelib}/%{pypi_name}.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py?.?.egg-info
+
+%files selinux
+%{_datadir}/selinux/packages/%{name}/collectd_systemd.pp
 
 %check
 PYTHONPATH=. pytest-2

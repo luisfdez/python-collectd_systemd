@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.1
-Release:        0.2.%{snapinfo}%{?dist}
+Release:        0.3.%{snapinfo}%{?dist}
 Summary:        Collectd plugin to monitor systemd services
 
 License:        MIT
@@ -113,6 +113,9 @@ PYTHONPATH=. pytest-2
 PYTHONPATH=. pytest-3
 
 %changelog
+* Tue May 22 2018 Steve Traylen <steve.traylen@cern.ch> - 0.0.1-0.3.20180516gita7018ec
+- Add selinux sub package
+
 * Thu May 17 2018 Steve Traylen <steve.traylen@cern.ch> - 0.0.1-0.2.20180516gita7018ec
 - Correct snapshot in string.
 

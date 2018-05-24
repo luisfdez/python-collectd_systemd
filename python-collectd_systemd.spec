@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.1
-Release:        0.3.%{snapinfo}%{?dist}
+Release:        0.4.%{snapinfo}%{?dist}
 Summary:        Collectd plugin to monitor systemd services
 
 License:        MIT
@@ -65,7 +65,7 @@ install -m 644 -p collectd_systemd.pp \
     %{buildroot}%{_datadir}/selinux/packages/%{name}/collectd_systemd.pp
 
 %post selinux
-/usr/sbin/semodule -i %{_datadir}/selinux/packages/collectd_systemd/collectd_systemd.pp >/dev/null 2>&1 || :
+/usr/sbin/semodule -i %{_datadir}/selinux/packages/%{name}/collectd_systemd.pp >/dev/null 2>&1 || :
 
 %postun selinux
 if [ $1 -eq 0 ] ; then
@@ -86,6 +86,9 @@ fi
 PYTHONPATH=. py.test
 
 %changelog
+* Thu May 24 2018 Steve Traylen <steve.traylen@cern.ch> - 0.0.1-0.4.20180516gita7018ec
+- Corect path to selinux module.
+
 * Tue May 22 2018 Steve Traylen <steve.traylen@cern.ch> - 0.0.1-0.3.20180516gita7018ec
 - Add selinux sub package
 

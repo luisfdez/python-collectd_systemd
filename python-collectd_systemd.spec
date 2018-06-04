@@ -1,13 +1,13 @@
 # Created by pyp2rpm-3.3.0
 %global pypi_name collectd_systemd
 
-%global commit a7018ec32245abc2828a9bcd4cd0d216fde8a021
+%global commit be9c647d63c7b52295043a08638abce2da25e638
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global snapinfo 20180516git%{shortcommit}
+%global snapinfo 20180604git%{shortcommit}
 
 Name:           python-%{pypi_name}
 Version:        0.0.1
-Release:        0.4.%{snapinfo}%{?dist}
+Release:        0.5.%{snapinfo}%{?dist}
 Summary:        Collectd plugin to monitor systemd services
 
 License:        MIT
@@ -113,6 +113,9 @@ PYTHONPATH=. pytest-2
 PYTHONPATH=. pytest-3
 
 %changelog
+* Mon Jun 04 2018 Steve Traylen <steve.traylen@cern.ch> - 0.0.1-0.5.20180604gitbe9c647
+- New HEAD from upstream.
+
 * Thu May 24 2018 Steve Traylen <steve.traylen@cern.ch> - 0.0.1-0.4.20180516gita7018ec
 - Corect path to selinux module.
 

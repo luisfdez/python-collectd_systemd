@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.1
-Release:        0.5.%{snapinfo}%{?dist}
+Release:        0.6.%{snapinfo}%{?dist}
 Summary:        Collectd plugin to monitor systemd services
 
 License:        MIT
@@ -113,6 +113,9 @@ PYTHONPATH=. pytest-2
 PYTHONPATH=. pytest-3
 
 %changelog
+* Tue Jun 19 2018 Miro Hrončok <mhroncok@redhat.com> - 0.0.1-0.6.20180604gitbe9c647
+- Rebuilt for Python 3.7
+
 * Mon Jun 04 2018 Steve Traylen <steve.traylen@cern.ch> - 0.0.1-0.5.20180604gitbe9c647
 - New HEAD from upstream.
 

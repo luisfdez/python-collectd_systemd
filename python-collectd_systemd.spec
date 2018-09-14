@@ -38,7 +38,7 @@ are in "running" state and sends metrics with 1.0 or 0.0.
 
 %package selinux
 Summary:        selinux policy for collectd systemd plugin
-Requires:       selinux-policy
+Requires:       selinux-policy >= 3.13.1-192
 Requires:       policycoreutils
 
 %description selinux
